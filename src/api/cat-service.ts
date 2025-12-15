@@ -7,10 +7,9 @@ export class CatService {
     this.url = endpoint.url;
   }
 
-  public getCats = (from: string): AxiosPromise => {
+  public getCats = (): AxiosPromise => {
     return axios.request({
       baseURL: this.url,
-      params: { from },
       headers: { Accept: 'application/json' },
       method: 'GET',
       url: '/cats',

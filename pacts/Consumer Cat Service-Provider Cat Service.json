@@ -104,12 +104,7 @@
           ]
         },
         "method": "GET",
-        "path": "/cats",
-        "query": {
-          "from": [
-            "today"
-          ]
-        }
+        "path": "/cats"
       },
       "response": {
         "body": {
@@ -242,7 +237,81 @@
             }
           }
         },
-        "status": 200
+        "status": 201
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request for delete a cat",
+      "pending": false,
+      "request": {
+        "headers": {
+          "Accept": [
+            "application/json"
+          ]
+        },
+        "method": "DELETE",
+        "path": "/cats/3"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "message": "Cat Deleted Successfully"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "status": 202
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request for update a cat",
+      "pending": false,
+      "request": {
+        "headers": {
+          "Accept": [
+            "application/json"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "method": "PUT",
+        "path": "/cats/7"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "age": 10,
+            "name": "Aang"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "status": 201
       },
       "type": "Synchronous/HTTP"
     }

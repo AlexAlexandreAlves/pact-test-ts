@@ -17,7 +17,7 @@ chai.use(sinonChai);
 chai.use(chaiAsPromised);
 const LOG_LEVEL = process.env.LOG_LEVEL || 'DEBUG';
 
-describe('GET /cats', () => {
+describe('/cats tests', () => {
   let catService: CatService;
 
   // Create a 'pact' between the two applications in the integration we are testing
@@ -39,7 +39,6 @@ describe('GET /cats', () => {
       .given('I have a list of cats')
       .uponReceiving('a request for all cats')
       .withRequest('GET', '/cats', (builder) => {
-        builder.query({ from: 'today' });
         builder.headers({ Accept: 'application/json' });
       })
       .willRespondWith(200, (builder) => {
@@ -50,7 +49,7 @@ describe('GET /cats', () => {
         // CatService API client dynamically to point to the mock service Pact created for us, 
         // instead of the real one
         catService = new CatService({ url: mockserver.url });
-        const response = await catService.getCats('today');
+        const response = await catService.getCats();
 
         // Assert: check the result
         expect(response.data[0]).to.deep.eq(catExampleData);
@@ -101,7 +100,7 @@ describe('GET /cats', () => {
       .withRequest('POST', '/cats', (builder) => {
         builder.headers({ Accept: 'application/json', 'Content-Type': 'application/json' });
       })
-      .willRespondWith(200, (builder) => {
+      .willRespondWith(201, (builder) => {
         builder.headers({ 'Content-Type': 'application/json' });
         builder.jsonBody(EXPECTED_CAT_PROFILE_BODY);
       })
@@ -110,9 +109,64 @@ describe('GET /cats', () => {
         const response = await catService.createCat(EXPECTED_CAT_PROFILE_BODY);
 
         // Assert: check the result
-        expect(response.status).to.eq(200);
+        expect(response.status).to.eq(201);
         expect(response.data).to.deep.eq(EXPECTED_CAT_PROFILE_BODY.value);
-        
+
+        return response;
+      });
+  });
+
+  it('Should update a cat', async () => {
+    const EXPECTED_CAT_PROFILE_BODY = Matchers.like({
+      name: 'Aang',
+      age: 10,
+    });
+
+    // Interação para a lista de cats (GET /cats/{1})
+    provider
+      .addInteraction()
+      .uponReceiving('a request for update a cat')
+      .withRequest('PUT', '/cats/7', (builder) => {
+        builder.headers({ Accept: 'application/json', 'Content-Type': 'application/json' });
+      })
+      .willRespondWith(201, (builder) => {
+        builder.headers({ 'Content-Type': 'application/json' });
+        builder.jsonBody(EXPECTED_CAT_PROFILE_BODY);
+      })
+      .executeTest(async (mockserver) => {
+        catService = new CatService({ url: mockserver.url });
+        const response = await catService.updateCat(7, EXPECTED_CAT_PROFILE_BODY);
+
+        // Assert: check the result
+        expect(response.status).to.eq(201);
+        expect(response.data).to.deep.eq(EXPECTED_CAT_PROFILE_BODY.value);
+
+        return response;
+      });
+  });
+
+
+  it('Should delete a cat', async () => {
+    const EXPECTED_MESSAGE = "Cat Deleted Successfully";
+
+    provider
+      .addInteraction()
+      .uponReceiving('a request for delete a cat')
+      .withRequest('DELETE', '/cats/3', (builder) => {
+        builder.headers({ Accept: 'application/json' });
+      })
+      .willRespondWith(202, (builder) => {
+        builder.headers({ 'Content-Type': 'application/json' });
+        builder.jsonBody({ message: EXPECTED_MESSAGE });
+      })
+      .executeTest(async (mockserver) => {
+        catService = new CatService({ url: mockserver.url });
+        const response = await catService.deleteCat(3);
+
+        // Assert: check the result
+        expect(response.data.message).to.deep.eq(EXPECTED_MESSAGE); 
+        expect(response.status).to.deep.eq(202);
+
         return response;
       });
   });
