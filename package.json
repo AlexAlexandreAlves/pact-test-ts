@@ -1,15 +1,9 @@
 {
-  "name": "@pact-foundation/pact",
-  "version": "16.0.2",
-  "description": "Pact for all things Javascript",
-  "main": "./src/index.js",
-  "types": "./src/index.d.ts",
+  "name": "pact-test-ts",
+  "version": "1.0.0",
+  "description": "Pact testing example using TypeScript",
   "scripts": {
-    "test": "mocha"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pact-foundation/pact-js.git"
+    "test": "mocha -r ts-node/register 'tests/**/*.ts'"
   },
   "engines": {
     "node": ">=20"
@@ -17,130 +11,24 @@
   "keywords": [
     "pact",
     "pact-js",
-    "javascript",
+    "typescript",
     "contract testing",
-    "testing",
-    "consumer driven testing"
+    "testing"
   ],
-  "author": "Matt Fellows <m@onegeek.com.au> (http://twitter.com/matthewfellows)",
-  "contributors": [
-    {
-      "name": "Tarcio Saraiva",
-      "email": "tarcio@gmail.com",
-      "url": "http://twitter.com/tarciosaraiva"
-    },
-    {
-      "name": "Michel Boudreau",
-      "email": "michelboudreau@gmail.com",
-      "url": "http://codinghitchhiker.com"
-    },
-    {
-      "name": "Beth Skurrie",
-      "email": "beth@bethesque.com",
-      "url": "https://github.com/bethesque"
-    }
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/pact-foundation/pact-js/issues"
-  },
-  "homepage": "https://docs.pact.io/implementation_guides/javascript/",
-  "standard-version": {
-    "types": [
-      {
-        "type": "feat",
-        "section": "Features"
-      },
-      {
-        "type": "fix",
-        "section": "Fixes and Improvements"
-      },
-      {
-        "type": "chore",
-        "hidden": true
-      },
-      {
-        "type": "docs",
-        "hidden": true
-      },
-      {
-        "type": "style",
-        "hidden": true
-      },
-      {
-        "type": "refactor",
-        "hidden": true
-      },
-      {
-        "type": "perf",
-        "hidden": true
-      },
-      {
-        "type": "test",
-        "hidden": true
-      }
-    ]
-  },
-  "dependencies": {
+  "devDependencies": {
     "@pact-foundation/pact": "^16.0.2",
     "@pact-foundation/pact-core": "^17.0.0",
-    "axios": "^1.12.2",
-    "body-parser": "^2.2.0",
-    "chalk": "4.1.2",
-    "express": "^5.1.0",
-    "graphql": "^16.11.0",
-    "graphql-tag": "^2.12.6",
-    "http-proxy": "^1.18.1",
-    "https-proxy-agent": "^7.0.6",
-    "js-base64": "^3.7.8",
-    "lodash": "^4.17.21",
-    "ramda": "^0.32.0",
-    "randexp": "^0.5.3",
-    "router": "^2.2.0",
-    "stack-utils": "^2.0.6"
-  },
-  "devDependencies": {
-    "@babel/cli": "7.28.3",
-    "@babel/core": "7.28.5",
-    "@babel/preset-env": "7.28.5",
     "@pact-foundation/pact-js-prettier-config": "1.0.0",
-    "@types/chai": "5.2.3",
-    "@types/chai-as-promised": "8.0.2",
-    "@types/express": "4.17.25",
-    "@types/http-proxy": "1.17.17",
-    "@types/lodash": "4.17.21",
-    "@types/mocha": "10.0.10",
-    "@types/nock": "11.1.0",
-    "@types/node": "24.10.2",
-    "@types/ramda": "0.31.1",
-    "@types/sinon": "21.0.0",
-    "@types/sinon-chai": "4.0.0",
-    "@types/stack-utils": "2.0.3",
-    "@typescript-eslint/eslint-plugin": "5.62.0",
-    "@typescript-eslint/parser": "5.62.0",
-    "chai": "6.2.1",
     "chai-as-promised": "8.0.2",
-    "commit-and-tag-version": "12.6.1",
-    "copyfiles": "2.4.1",
-    "eslint": "8.57.1",
-    "eslint-config-airbnb-base": "15.0.0",
-    "eslint-config-airbnb-typescript": "17.1.0",
-    "eslint-config-prettier": "10.1.8",
-    "eslint-import-resolver-typescript": "4.4.2",
-    "eslint-plugin-chai-friendly": "1.1.0",
-    "eslint-plugin-import": "2.32.0",
-    "eslint-plugin-mocha": "10.5.0",
-    "mocha": "^11.7.5",
-    "nock": "14.0.10",
-    "nyc": "17.1.0",
-    "prettier": "3.6.2",
-    "proxyquire": "2.1.3",
-    "rimraf": "6.1.2",
-    "sinon": "21.0.0",
+    "@types/chai-as-promised": "8.0.2",
+    "chai": "^6.2.1",
+    "@types/sinon-chai": "4.0.0",
     "sinon-chai": "4.0.1",
-    "source-map-support": "0.5.21",
+    "mocha": "^11.7.5",
     "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
+    "@types/chai": "^5.2.3",
     "tsx": "4.21.0",
-    "typescript": "5.9.3"
+    "@types/mocha": "^10.0.10"
   }
 }
